@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.louis.mapper.FileTbMapper">
+    <resultMap id="BaseResultMap" type="com.louis.entity.FileTb">
+        <id column="file_id" property="fileId" jdbcType="CHAR"/>
+        <result column="file_name" property="fileName" jdbcType="VARCHAR"/>
+        <result column="file_url" property="fileUrl" jdbcType="VARCHAR"/>
+        <result column="file_md5" property="fileMd5" jdbcType="VARCHAR"/>
+        <result column="real_Path" property="realPath" jdbcType="VARCHAR"/>
+        <result column="file_Size" property="fileSize" jdbcType="BIGINT"/>
+        <result column="create_Date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="file_uploader" property="fileUploader" jdbcType="VARCHAR"/>
+        <result column="file_type" property="fileType" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    file_id, file_name, file_url, file_md5, real_Path, file_Size, create_Date, file_uploader, 
+    file_type
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from file_tb
+        where file_id = #{fileId,jdbcType=CHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from file_tb
+    where file_id = #{fileId,jdbcType=CHAR}
+  </delete>
+
+    <insert id="insert" parameterType="com.louis.entity.FileTb" >
+    insert into file_tb (file_id, file_name, file_url, 
+      file_md5, real_Path, file_Size, 
+      create_Date, file_uploader, file_type
+      )
+    values (#{fileId,jdbcType=CHAR}, #{fileName,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, 
+      #{fileMd5,jdbcType=VARCHAR}, #{realPath,jdbcType=VARCHAR}, #{fileSize,jdbcType=BIGINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{fileUploader,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.louis.entity.FileTb">
+        insert into file_tb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">
+                file_id,
+            </if>
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="fileUrl != null">
+                file_url,
+            </if>
+            <if test="fileMd5 != null">
+                file_md5,
+            </if>
+            <if test="realPath != null">
+                real_Path,
+            </if>
+            <if test="fileSize != null">
+                file_Size,
+            </if>
+            <if test="createDate != null">
+                create_Date,
+            </if>
+            <if test="fileUploader != null">
+                file_uploader,
+            </if>
+            <if test="fileType != null">
+                file_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">
+                #{fileId,jdbcType=CHAR},
+            </if>
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="fileUrl != null">
+                #{fileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="fileMd5 != null">
+                #{fileMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="realPath != null">
+                #{realPath,jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                #{fileSize,jdbcType=BIGINT},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fileUploader != null">
+                #{fileUploader,jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                #{fileType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
